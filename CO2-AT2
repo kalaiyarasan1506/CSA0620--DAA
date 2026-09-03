@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <math.h>
+
+struct Point {
+    int x;
+    int y;
+};
+
+double distance(struct Point p1, struct Point p2)
+{
+    return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
+}
+
+int main()
+{
+    int n;
+    
+    printf("Enter number of courier locations: ");
+    scanf("%d", &n);
+
+    struct Point points[n];
+
+    printf("Enter coordinates (x y):\n");
+
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d %d", &points[i].x, &points[i].y);
+    }
+
+    double minDistance = INFINITY;
+    int point1 = 0, point2 = 0;
+
+    for(int i = 0; i < n-1; i++)
+    {
+        for(int j = i+1; j < n; j++)
+        {
+            double d = distance(points[i], points[j]);
+
+            if(d < minDistance)
+            {
+                minDistance = d;
+                point1 = i;
+                point2 = j;
+            }
+        }
+    }
+
+    printf("\nClosest courier points:\n");
+    printf("Point %d: (%d,%d)\n", point1+1, points[point1].x, points[point1].y);
+    printf("Point %d: (%d,%d)\n", point2+1, points[point2].x, points[point2].y);
+
+    printf("Minimum Distance = %.2f\n", minDistance);
+
+    return 0;
+}
