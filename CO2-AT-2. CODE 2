@@ -1,0 +1,55 @@
+ODE-2.txt‎
++67
+Lines changed: 67 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,67 @@
+#include <stdio.h>
+struct Point {
+    int x;
+    int y;
+};
+int orientation(struct Point a, struct Point b, struct Point c)
+{
+    int value = (b.y - a.y) * (c.x - b.x) -
+                (b.x - a.x) * (c.y - b.y);
+    if(value == 0)
+        return 0;
+    return (value > 0) ? 1 : 2;
+}
+int main()
+{
+    int n;
+    printf("Enter number of points: ");
+    scanf("%d", &n);
+    struct Point points[n];
+    printf("Enter coordinates (x y):\n");
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d %d", &points[i].x, &points[i].y);
+    }
+    printf("\nConvex Hull Boundary Points:\n");
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = i+1; j < n; j++)
+        {
+            int left = 0, right = 0;
+            for(int k = 0; k < n; k++)
+            {
+                if(k == i || k == j)
+                    continue;
+                int o = orientation(points[i], points[j], points[k]);
+                if(o == 1)
+                    left++;
+                else if(o == 2)
+                    right++;
+            }
+            if(left == 0 || right == 0)
+            {
+                printf("(%d,%d) - (%d,%d)\n",
+                points[i].x, points[i].y,
+                points[j].x, points[j].y);
+            }
+        }
+    }
+    return 0;
+}
