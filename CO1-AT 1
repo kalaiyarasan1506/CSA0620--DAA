@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+int binarySearch(int arr[], int n, int key)
+{
+    int low = 0;
+    int high = n - 1;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+
+        if (arr[mid] == key)
+            return mid;
+        else if (arr[mid] < key)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+
+    return -1;
+}
+
+int main()
+{
+    int n, key;
+
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+
+    int files[n];
+
+    printf("Enter sorted file IDs:\n");
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &files[i]);
+    }
+
+    printf("Enter file ID to search: ");
+    scanf("%d", &key);
+
+    int result = binarySearch(files, n, key);
+
+    if (result != -1)
+        printf("File found at position %d\n", result);
+    else
+        printf("File not found\n");
+
+    return 0;
+}
