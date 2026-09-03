@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int processSensorData(int n)
+{
+    if (n <= 1)
+        return 1;
+
+    int left = processSensorData(n / 2);
+    int right = processSensorData(n / 2);
+
+    int combineCost = n * n;
+
+    return left + right + combineCost;
+}
+
+int main()
+{
+    int n;
+
+    printf("Enter sensor data size: ");
+    scanf("%d", &n);
+
+    int result = processSensorData(n);
+
+    printf("Total Processing Cost: %d\n", result);
+
+    return 0;
+}
